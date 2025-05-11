@@ -4,7 +4,38 @@ This project is the Minimum Viable Product (MVP) for exploring the 'Kill, Fuck, 
 
 ## Project Structure
 
-- `docs/`: Contains project documentation (e.g., PRD, design notes).
+- `docs/`: Contains project documentation:
+    - `api/`: API specific documentation (key management, endpoints).
+    - `cli/`: Command Line Interface specific documentation.
+    - `design_notes/`: Notes on KFM paradigm, ethical ontologies, reflection prompt design.
+    - `error_docs/`: Documentation for error types and troubleshooting.
+    - `ethical_guidelines/`: Guidelines for Human-in-the-Loop feedback, stakeholder validation.
+    - `examples/`: Tutorial examples for debugging, performance.
+    - `technical/`: Technical design for memory, reversibility, transparency.
+    - `testing/`: Documentation for CI, KFM rule tests, LLM logging tests.
+    - `training/`: Training materials for HITL reviewers.
+    - `troubleshooting/`: General troubleshooting guides.
+    - `user_guides/`: Guides for getting started, breakpoints, monitoring, etc.
+    - `compilation.md`
+    - `compiled_graph_testing.md`
+    - `cursor_commands.md`
+    - `debugging.md`
+    - `design.md`
+    - `error_handling_flowchart.md`
+    - `error_handling.md`
+    - `index.md` (Overall docs index)
+    - `langgraph_state.md`
+    - `logger.md`
+    - `logging_and_errors.md`
+    - `MVP_Requirements_Traceability_Matrix.md`
+    - `README.md` (A readme specific to the docs folder, if it exists)
+    - `reflection_node.md`
+    - `reflection_prompt_template.md`
+    - `rich_visualizations.md`
+    - `state_verification_readme.md`
+    - `state_verification_verbosity.md`
+    - `tooltips.json`
+    - `visualization.md`
 - `notebooks/`: (Optional) Jupyter notebooks for experimentation.
 - `scripts/`: Contains utility scripts (e.g., PRD generation, data processing).
 - `src/`: Contains the main source code for the KFM agent.
