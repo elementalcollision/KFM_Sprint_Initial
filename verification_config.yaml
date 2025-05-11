@@ -1,0 +1,48 @@
+global_settings:
+  log_level: INFO
+  log_file_path: "logs/kfm_verifier_activity.log" # Example of a different path than model default
+  log_format: "%(asctime)s [%(levelname)-8s] %(name)-25s - %(message)s (%(filename)s:%(lineno)d)" # Example of a more detailed format
+  error_log_file_path: "logs/kfm_verifier_errors.jsonl"
+  error_log_format: '{"timestamp": "%(asctime)s", "level": "%(levelname)s", "logger_name": "%(name)s", "module": "%(module)s", "funcName": "%(funcName)s", "lineno": "%(lineno)s", "message": "%(message)s", "exception_type": "%(exc_info_type)s", "exception_message": "%(exc_info_message)s", "traceback": "%(exc_info_traceback)s"}'
+  max_retries: 3
+  retry_delay: 5 # seconds
+
+log_parsing:
+  default_date_formats:
+    - "%Y-%m-%d %H:%M:%S,%f"
+    - "%Y-%m-%dT%H:%M:%S.%fZ"
+  log_sources:
+    - path: "logs/llm_api.log" # Example, actual path may vary or be relative to a root
+      parser_type: "json_line"
+    - path: "logs/kfm_app.log"
+      parser_type: "auto_detect" # Assuming a smart auto-detection or generic line parser
+    # - path: "logs/src.tracing.log"
+    #   parser_type: "regex_line"
+    #   regex_patterns_file: "config/tracing_log_patterns.yaml"
+
+registry_verifier:
+  client_type: "live" # Default to live, can be overridden by env or specific test configs
+  # registry_access_details:
+  #   endpoint: "http://your-registry-api-endpoint"
+  mock_registry_data_file: "tests/fixtures/mock_registry_data.yaml" # Path for mock data if client_type is mock_from_file
+  cache_ttl: 300 # 5 minutes
+
+outcome_comparator:
+  default_numeric_tolerance: 0.001
+  default_missing_path_behavior: "warn" # Options: 'fail', 'warn', 'pass'
+
+report_generator:
+  default_report_formats:
+    - "json"
+    - "html"
+    # - "pdf" # PDF generation can be heavy, make it optional or conditional
+  report_templates_dir: "src/verification/report_generator/templates"
+  default_report_output_dir: "verification_reports"
+
+cli_defaults:
+  verification_level: "standard" # Options: 'basic', 'standard', 'detailed'
+
+memory:
+  embedding_model_name: "all-MiniLM-L6-v2"
+  vector_db_path: "./kfm_chroma_db" # Default path for Chroma persistent storage
+  collection_name: "agent_experiences" # Default collection name 

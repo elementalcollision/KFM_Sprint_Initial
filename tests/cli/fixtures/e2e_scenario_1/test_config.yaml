@@ -1,0 +1,62 @@
+global_settings:
+  log_level: INFO # Keep logs clean for test output
+  # Point log file paths within the temp test directory if needed, or omit
+  # max_retries: 0 # Set low for testing if needed
+
+log_parsing:
+  log_sources:
+    - path: ./logs/kfm_agent.log # Path relative to the test execution CWD (the temp dir)
+      parser_type: regex_line # Assuming a regex parser is configured for this type
+    - path: ./logs/execution_engine.log
+      parser_type: regex_line
+    - path: ./logs/llm_api.log
+      parser_type: json_line
+    - path: ./logs/component_a.log
+      parser_type: regex_line
+    - path: ./logs/component_b.log
+      parser_type: regex_line
+
+registry_verifier:
+  client_type: mock_from_file # Use our mock file
+  mock_registry_data_file: ./mock_registry/initial_state.json # Path relative to CWD
+
+verification_criteria: # Hypothetical section for defining checks
+  - check_id: kfm_decision_a_update
+    type: log_contains
+    log_source: kfm_agent.log
+    pattern: "Decision: Run component_a.update_status"
+    expected: true # Expect this log line to be present
+
+  - check_id: execution_a_success
+    type: log_contains
+    log_source: execution_engine.log
+    pattern: "Execution successful: component_a.update_status"
+    expected: true
+
+  - check_id: registry_a_status
+    type: registry_state
+    component_id: component_a
+    attribute: status
+    expected_value: processing # Expected final state
+
+  - check_id: llm_call_made
+    type: log_contains
+    log_source: llm_api.log
+    pattern: '"type": "request", "component": "component_a"' # Check if component_a made a request
+    expected: true
+
+  - check_id: execution_b_failed_log
+    type: log_contains
+    log_source: execution_engine.log
+    pattern: "Execution failed: component_b.process_data"
+    expected: true # We expect the failure log to be present
+
+  - check_id: registry_b_error_state
+    type: registry_state
+    component_id: component_b
+    attribute: last_error
+    expected_value: "Missing data required for processing" # This check SHOULD FAIL in the test
+
+report_generator:
+  default_report_output_dir: ./reports # Relative to CWD
+  default_report_formats: [json] # Keep it simple for parsing in test 

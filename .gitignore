@@ -91,5 +91,20 @@ node_modules/
 *.sw?
 
 # Task files
-tasks.json
-tasks/ 
+tasks/
+
+# KFM Project Specific Generated Artifacts
+kfm_snapshots/
+tmp_snapshot_storage/
+compiled_graph/
+test_reports/
+
+# Specific PRDs and graph image files in root
+graph_*.png
+replay_*.png
+kfm_graph_*.png
+KFM_SPRINT_PRD_GOOGLE_DAY1-3.json
+KFM_SPRINT_PRD_GOOGLE_DAY4-5.json
+
+# Cursor editor specific
+.cursor/ 

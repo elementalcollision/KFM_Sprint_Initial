@@ -1,0 +1,22 @@
+{
+  "graph_execution_errors": {
+    "title": "Graph Execution Errors",
+    "path": "errors/graph_execution_errors.md",
+    "url": null,
+    "description": "Graph Execution Errors",
+    "tags": [
+      "graph-execution-errors"
+    ],
+    "error_patterns": []
+  },
+  "state_validation_errors": {
+    "title": "State Validation Errors",
+    "path": "errors/state_validation_errors.md",
+    "url": null,
+    "description": "State Validation Errors",
+    "tags": [
+      "state-validation-errors"
+    ],
+    "error_patterns": []
+  }
+}

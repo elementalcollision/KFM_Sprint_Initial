@@ -1,0 +1,10 @@
+module_name: "ExamplePlugin"
+version: "0.1.0"
+entry_point: "my_plugins.example_plugin.PluginMainClass"
+description: "An example plugin to demonstrate the module discovery mechanism."
+author: "KFM Developer"
+dependencies:
+  - name: "CoreUtilityModule"
+    version_specifier: ">=1.2.0, <2.0.0"
+  - name: "AnotherDependency"
+    version_specifier: "==0.5.0" 

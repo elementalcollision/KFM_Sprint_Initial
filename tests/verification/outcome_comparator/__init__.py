@@ -1,0 +1,1 @@
+# Initialize the outcome_comparator tests module 

@@ -1,0 +1,1 @@
+# This file makes the 'transparency' test subdirectory a Python package. 

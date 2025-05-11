@@ -1,0 +1,35 @@
+# Minimal PRD: KFM Agent MVP - Actionable Tasks (Days 1-3)
+
+## Day 1: Setup, Core Classes & Basic Tests
+
+- Setup: Create project structure, initialize Git repository, set up Python virtual environment (Python 3.x).
+- Install Dependencies: pip install langgraph google-generativeai python-dotenv (or similar).
+- Configure Environment: Set up .env file for Google AI Studio API Key. Confirm Cursor AI IDE setup.
+- Define Core Class Requirements: Document expected inputs, outputs, methods, and state attributes for ComponentRegistry, StateMonitor, component functions.
+- Implement ComponentRegistry: Class with methods register_component, set_active, get_active_component_func. Store components in a dictionary.
+- Implement StateMonitor: Class with get_performance_data, get_task_requirements methods returning mock/static data structures.
+- Implement Dummy Components: Create 2-3 simple Python functions (e.g., analyze_fast, analyze_accurate) adhering to a defined signature.
+- Unit Testing (Core): Write and pass unit tests for ComponentRegistry (registration, activation/deactivation logic, retrieval). Test StateMonitor data structure output. Test dummy component function signatures and basic return values.
+- Documentation: Add clear docstrings to all classes and methods created.
+- Code Review: Perform self-review or peer-review of Day 1 code focusing on structure, clarity, and initial test coverage.
+
+## Day 2: KFM Logic, Execution & Testing
+
+- Define KFM Rule Requirements: Explicitly document the specific IF/THEN rules for 'Kill' and 'Marry' decisions based on accuracy/latency thresholds and task requirements for the MVP.
+- Implement KFMPlanner: Class with decide_kfm_action method implementing the defined rule-based logic. Takes performance data and requirements, returns action dictionary or None.
+- Implement ExecutionEngine: Class with apply_kfm_action (calls ComponentRegistry.set_active) and execute_task (gets active func from Registry, calls it, returns result and simulated performance).
+- Unit Testing (Logic & Execution): Write and pass unit tests for KFMPlanner covering all defined rule conditions and expected outputs. Test ExecutionEngine.apply_kfm_action effects on a mock Registry. Test ExecutionEngine.execute_task calls the correct active component.
+- Requirements Validation: Manually verify that the implemented KFMPlanner rules exactly match the documented rule requirements.
+- Dependency Injection: Ensure KFMPlanner and ExecutionEngine receive the ComponentRegistry instance via their constructors.
+- Logging: Add print statements or basic logging calls within Planner and Executor methods to trace input data, decisions made, and actions taken.
+
+## Day 3: LangGraph Framework Integration
+
+- Define LangGraph State Requirements: Finalize the structure of the KFMAgentState TypedDict, ensuring all necessary fields for inter-node communication are present.
+- Implement KFMAgentState TypedDict in the main agent script.
+- Define LangGraph Node Requirements: Document the specific state keys each node reads and writes.
+- Implement LangGraph Nodes: Create functions (monitor_state_node, kfm_decision_node, execute_action_node) that take KFMAgentState, call the corresponding core class methods (Monitor, Planner, Executor), and return the updated state.
+- Define LangGraph Edge Requirements: Specify the exact sequence of node execution (Monitor -> Decide -> Execute -> Reflect -> END).
+- Build the Graph: Instantiate StateGraph, add nodes, set entry point, add edges according to the defined flow.
+- Initial Integration Testing: Test each node function individually by providing a sample input state dictionary and verifying the output state dictionary. Mock dependencies (like LLM calls) if necessary at this stage.
+- Documentation: Add comments explaining the graph structure and the role of each node within the LangGraph definition. 

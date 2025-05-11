@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Report</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; line-height: 1.5; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; font-size: 0.9em; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; vertical-align: top; }
+        th { background-color: #e9ecef; font-weight: bold; }
+        .summary { margin-bottom: 20px; padding: 15px; border-radius: 5px; }
+        .summary.passed { background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .summary.failed { background-color: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        .check-row.passed td:first-child::before { content: '✓ '; color: green; }
+        .check-row.failed td:first-child::before { content: '✗ '; color: red; }
+        .check-row.warn td:first-child::before { content: '⚠️ '; color: orange; }
+        /* Differentiate background slightly for passed/failed/warn rows */
+        .check-row.passed { background-color: #f0fff0; }
+        .check-row.failed { background-color: #fff0f0; }
+        .check-row.warn { background-color: #fff8f0; }
+        h1, h2 { color: #333; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        code { background-color: #f8f9fa; padding: 2px 4px; border-radius: 3px; font-size: 0.9em; }
+        pre { white-space: pre-wrap; word-wrap: break-word; }
+    </style>
+</head>
+<body>
+    <h1>Verification Report</h1>
+
+    {# Display Overall Summary #}
+    {% if result %}
+    <div class="summary {{ 'passed' if result.overall_passed else 'failed' }}">
+        <h2>Overall Result: {{ 'Passed' if result.overall_passed else 'Failed' }}</h2>
+        <p>{{ result.summary }}</p>
+        <p>Total Checks: {{ result.checks|length }} | Errors: {{ result.error_count }} | Warnings: {{ result.warning_count }}</p>
+    </div>
+
+    {# Display Detailed Check Results #}
+    {% if result.checks %}
+    <h2>Detailed Checks</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Check Name</th>
+                <th>Status</th>
+                <th>Details</th>
+                <th>Expected</th>
+                <th>Actual</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for check in result.checks %}
+            {# Determine row class based on passed status and warning presence #}
+            {% set row_status = 'passed' if check.passed else 'failed' %}
+            {% if 'warn' in check.check_name.lower() or (check.message and 'warn' in check.message.lower() and not check.passed) %}
+                 {% set row_status = 'warn' %}
+            {% endif %}
+            <tr class="check-row {{ row_status }}">
+                <td><code>{{ check.check_name }}</code></td>
+                <td>{{ 'Passed' if check.passed else ('Warn' if row_status == 'warn' else 'Failed') }}</td>
+                <td>
+                    {% if check.attribute_checked %}<strong>Path:</strong> <code>{{ check.attribute_checked }}</code><br>{% endif %}
+                    {% if check.message %}<pre>{{ check.message }}</pre>{% endif %}
+                </td>
+                <td><pre>{{ check.expected_value }}</pre></td>
+                <td><pre>{{ check.actual_value }}</pre></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No detailed check results available.</p>
+    {% endif %}
+
+    {% else %}
+    <p>No verification result data provided.</p>
+    {% endif %}
+
+</body>
+</html> 

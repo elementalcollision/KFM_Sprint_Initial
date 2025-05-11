@@ -1,0 +1,84 @@
+{
+  "input_data": {
+    "text": "Complex multi-component test input",
+    "parameters": {
+      "max_tokens": 100,
+      "temperature": 0.7
+    }
+  },
+  "task_name": "multi_component_task",
+  "performance_data": {
+    "component_a": {
+      "latency": 0.5,
+      "accuracy": 0.95,
+      "cost": 0.01
+    },
+    "component_b": {
+      "latency": 0.8,
+      "accuracy": 0.85,
+      "cost": 0.005
+    },
+    "component_c": {
+      "latency": 0.3,
+      "accuracy": 0.88,
+      "cost": 0.015
+    },
+    "component_d": {
+      "latency": 1.2,
+      "accuracy": 0.98,
+      "cost": 0.02
+    }
+  },
+  "task_requirements": {
+    "max_latency": 1.0,
+    "min_accuracy": 0.9,
+    "max_cost": 0.02
+  },
+  "kfm_action": {
+    "action": "keep",
+    "component": "component_a",
+    "reason": "Best balance of metrics"
+  },
+  "execution_result": {
+    "status": "success",
+    "data": {
+      "records": 10,
+      "metadata": {
+        "processing_time": 0.5,
+        "model_version": "v2"
+      }
+    }
+  },
+  "execution_performance": {
+    "latency": 0.5,
+    "accuracy": 0.95,
+    "cost": 0.01
+  },
+  "name": "multi_component",
+  "description": "Complex scenario with multiple components and detailed metrics",
+  "expected_sequence": [
+    "monitor",
+    "decide",
+    "execute",
+    "reflect"
+  ],
+  "expected_final_keys": [
+    "input",
+    "task_name",
+    "performance_data",
+    "task_requirements",
+    "kfm_action",
+    "active_component",
+    "result",
+    "execution_performance",
+    "reflection",
+    "reflections",
+    "reflection_insights",
+    "reflection_analysis",
+    "validation_results"
+  ],
+  "tags": [
+    "complex",
+    "multi-component"
+  ]
+}

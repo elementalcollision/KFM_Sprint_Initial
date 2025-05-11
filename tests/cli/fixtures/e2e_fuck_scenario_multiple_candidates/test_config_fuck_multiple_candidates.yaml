@@ -1,0 +1,74 @@
+global_settings:
+  log_level: INFO
+
+log_parsing:
+  log_sources:
+    - path: ./logs/kfm_agent.log 
+      parser_type: regex_line 
+    - path: ./logs/execution_engine.log
+      parser_type: regex_line
+    - path: ./logs/component_candidate_b.log # Log of the chosen component
+      parser_type: regex_line
+
+registry_verifier:
+  client_type: mock_from_file
+  mock_registry_data_file: ./mock_registry/initial_state.json
+
+verification_criteria:
+  - check_id: kfm_identified_multiple_candidates
+    type: log_contains
+    log_source: kfm_agent.log
+    pattern: "Identified potential Fuck candidates: 'ComponentCandidateA' (Score: 0.75), 'ComponentCandidateB' (Score: 0.92), 'ComponentCandidateC' (Score: 0.68)"
+    expected: true
+
+  - check_id: kfm_ranking_logic_applied
+    type: log_contains
+    log_source: kfm_agent.log
+    pattern: "Ranking candidates based on utility, cost, and risk."
+    expected: true
+
+  - check_id: kfm_decision_fuck_ComponentCandidateB
+    type: log_contains
+    log_source: kfm_agent.log
+    pattern: "Decision: Fuck 'ComponentCandidateB' for task 'Complex Temporary Transformation'"
+    expected: true
+
+  - check_id: kfm_reason_ComponentCandidateB_ranking
+    type: log_contains
+    log_source: kfm_agent.log
+    pattern: "Reason: Highest ranked candidate, excellent utility/cost ratio."
+    expected: true
+
+  - check_id: execution_activate_ComponentCandidateB_temporary
+    type: log_contains
+    log_source: execution_engine.log
+    pattern: "Activating component 'ComponentCandidateB' (Temporary Mode)"
+    expected: true
+
+  - check_id: execution_ComponentCandidateB_active_temporary
+    type: log_contains
+    log_source: execution_engine.log
+    pattern: "Component 'ComponentCandidateB' is now active temporarily for task 'Complex Temporary Transformation'"
+    expected: true
+  
+  - check_id: component_ComponentCandidateB_initialized_temporary
+    type: log_contains
+    log_source: component_candidate_b.log
+    pattern: "Initialized in temporary mode for task 'Complex Temporary Transformation'"
+    expected: true
+
+  - check_id: component_ComponentCandidateB_task_complete
+    type: log_contains
+    log_source: component_candidate_b.log
+    pattern: "Task 'Complex Temporary Transformation' complete. Shutting down temporary instance."
+    expected: true
+
+  - check_id: execution_deactivate_ComponentCandidateB_temporary
+    type: log_contains
+    log_source: execution_engine.log
+    pattern: "Deactivating component 'ComponentCandidateB' (Temporary Mode)"
+    expected: true
+
+report_generator:
+  default_report_output_dir: ./reports 
+  default_report_formats: [json] 

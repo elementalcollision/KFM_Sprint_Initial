@@ -1,0 +1,70 @@
+global_settings:
+  log_level: INFO
+
+log_parsing:
+  log_sources:
+    - path: ./logs/kfm_agent.log 
+      parser_type: regex_line 
+    - path: ./logs/execution_engine.log
+      parser_type: regex_line
+    - path: ./logs/component_to_fuck.log
+      parser_type: regex_line
+
+registry_verifier:
+  client_type: mock_from_file
+  mock_registry_data_file: ./mock_registry/initial_state.json
+
+verification_criteria:
+  - check_id: kfm_decision_fuck_ComponentToFuck
+    type: log_contains
+    log_source: kfm_agent.log
+    pattern: "Decision: Fuck 'ComponentToFuck'"
+    expected: true
+
+  - check_id: kfm_reason_ComponentToFuck
+    type: log_contains
+    log_source: kfm_agent.log
+    pattern: "Reason: High utility for temporary need, low integration cost, acceptable risk."
+    expected: true
+
+  - check_id: execution_activate_ComponentToFuck_temporary
+    type: log_contains
+    log_source: execution_engine.log
+    pattern: "Activating component 'ComponentToFuck' (Temporary Mode)"
+    expected: true
+
+  - check_id: execution_ComponentToFuck_active_temporary
+    type: log_contains
+    log_source: execution_engine.log
+    pattern: "Component 'ComponentToFuck' is now active temporarily for task 'Urgent Temporary Data Aggregation'"
+    expected: true
+  
+  - check_id: component_ComponentToFuck_initialized_temporary
+    type: log_contains
+    log_source: component_to_fuck.log
+    pattern: "Initialized in temporary mode for task 'Urgent Temporary Data Aggregation'"
+    expected: true
+
+  - check_id: component_ComponentToFuck_task_complete
+    type: log_contains
+    log_source: component_to_fuck.log
+    pattern: "Task 'Urgent Temporary Data Aggregation' complete. Shutting down temporary instance."
+    expected: true
+
+  - check_id: execution_deactivate_ComponentToFuck_temporary
+    type: log_contains
+    log_source: execution_engine.log
+    pattern: "Deactivating component 'ComponentToFuck' (Temporary Mode)"
+    expected: true
+  
+  # Example of a registry check - this might not be applicable if 'Fuck' action doesn't change registry state persistently
+  # or if its transient state is not captured/verified this way. Adjust as needed.
+  # - check_id: registry_ComponentToFuck_status_after_temp_use 
+  #   type: registry_state 
+  #   component_id: ComponentToFuck
+  #   attribute: status 
+  #   expected_value: available # Assuming it returns to 'available' after temporary use
+
+report_generator:
+  default_report_output_dir: ./reports 
+  default_report_formats: [json] 

@@ -1,0 +1,56 @@
+global_settings:
+  log_level: INFO
+
+log_parsing:
+  log_sources:
+    - path: ./logs/kfm_agent.log 
+      parser_type: regex_line 
+    - path: ./logs/execution_engine.log
+      parser_type: regex_line
+    - path: ./logs/component_to_fail_during_fuck.log
+      parser_type: regex_line
+
+registry_verifier:
+  client_type: mock_from_file
+  mock_registry_data_file: ./mock_registry/initial_state.json
+
+verification_criteria:
+  - check_id: kfm_decision_fuck_ComponentToFail
+    type: log_contains
+    log_source: kfm_agent.log
+    pattern: "Decision: Fuck 'ComponentToFailDuringFuck' for task 'Risky Temporary Calculation'"
+    expected: true
+
+  - check_id: kfm_executor_reports_failure
+    type: log_contains
+    log_source: kfm_agent.log
+    pattern: "ERROR KFMExecutor: Fuck action failed for 'ComponentToFailDuringFuck'. Activation error reported by ExecutionEngine."
+    expected: true
+
+  - check_id: execution_engine_reports_activation_failure
+    type: log_contains
+    log_source: execution_engine.log
+    pattern: "ERROR ExecutionEngine: Failed to activate component 'ComponentToFailDuringFuck'. Reason: Simulated internal error - UnstableResourceUnavailable."
+    expected: true
+
+  - check_id: component_logs_initialization_failure
+    type: log_contains
+    log_source: component_to_fail_during_fuck.log
+    pattern: "ERROR ComponentToFailDuringFuck: Initialization failed. Critical resource 'SimulatedUnstableResource' not accessible."
+    expected: true
+
+  # This check is to ensure the verifier itself still passes overall if all *expected failures* are logged correctly.
+  # The verifier might have a way to specify that an error log IS the expected outcome for certain checks.
+  # For simplicity here, we are checking for the presence of error logs.
+  # If the verifier should FAIL the run because errors occurred, the test assertions would change.
+
+  # Optional: Check if component status in registry reflects failure if applicable
+  # - check_id: registry_ComponentToFail_status_after_failure
+  #   type: registry_state
+  #   component_id: ComponentToFailDuringFuck
+  #   attribute: status # or a specific error attribute
+  #   expected_value: error # or 'available_with_error' or similar
+
+report_generator:
+  default_report_output_dir: ./reports 
+  default_report_formats: [json] 

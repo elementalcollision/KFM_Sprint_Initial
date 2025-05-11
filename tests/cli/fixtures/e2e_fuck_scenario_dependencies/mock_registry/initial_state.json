@@ -1,0 +1,47 @@
+{
+  "components": [
+    {
+      "id": "ComponentToFuckWithDeps",
+      "name": "Temporary Orchestrator",
+      "version": "1.0.0",
+      "status": "available",
+      "description": "A component for temporary orchestration that depends on another service.",
+      "attributes": {
+        "temporary_utility_score": 0.85,
+        "integration_cost": 0.2,
+        "can_be_fucked": true,
+        "current_load": 0.1,
+        "failure_rate": 0.015
+      },
+      "dependencies": ["DependentServiceA"],
+      "provides": ["temporary_orchestration_capability"]
+    },
+    {
+      "id": "DependentServiceA",
+      "name": "Core Utility Service A",
+      "version": "1.5.0",
+      "status": "available", 
+      "description": "A core utility service that can be used by temporary components.",
+      "attributes": {
+        "can_be_fucked": false, // Or true, depending on how deep the test goes
+        "is_dependency_for_temp": true // Example attribute
+      },
+      "dependencies": [],
+      "provides": ["utility_service_a_capability"]
+    },
+    {
+      "id": "StableComponent",
+      "name": "Core Data Processor",
+      "version": "2.1.0",
+      "status": "active",
+      "description": "A critical, long-running component.",
+      "attributes": {
+        "temporary_utility_score": 0.1,
+        "integration_cost": 0.8,
+        "can_be_fucked": false
+      },
+      "dependencies": [],
+      "provides": ["core_data_processing"]
+    }
+  ]
+} 

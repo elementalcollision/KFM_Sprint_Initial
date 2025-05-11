@@ -1,0 +1,86 @@
+global_settings:
+  log_level: INFO
+
+log_parsing:
+  log_sources:
+    - path: ./logs/kfm_agent.log 
+      parser_type: regex_line 
+    - path: ./logs/execution_engine.log
+      parser_type: regex_line
+    - path: ./logs/component_to_fuck_with_deps.log
+      parser_type: regex_line
+
+registry_verifier:
+  client_type: mock_from_file
+  mock_registry_data_file: ./mock_registry/initial_state.json
+
+verification_criteria:
+  - check_id: kfm_decision_fuck_ComponentToFuckWithDeps
+    type: log_contains
+    log_source: kfm_agent.log
+    pattern: "Decision: Fuck 'ComponentToFuckWithDeps' for task 'Temporary Workflow Execution'"
+    expected: true
+
+  - check_id: kfm_identified_dependency
+    type: log_contains
+    log_source: kfm_agent.log
+    pattern: "Dependencies: ['DependentServiceA']"
+    expected: true
+
+  - check_id: kfm_dependency_available
+    type: log_contains
+    log_source: kfm_agent.log
+    pattern: "Dependency 'DependentServiceA' for 'ComponentToFuckWithDeps' is available"
+    expected: true
+
+  - check_id: executor_ensuring_dependency
+    type: log_contains
+    log_source: kfm_agent.log # This was in KFMExecutor in the log, so agent log
+    pattern: "ensuring dependency 'DependentServiceA' is accessible"
+    expected: true
+
+  - check_id: execution_verifying_dependency_access
+    type: log_contains
+    log_source: execution_engine.log
+    pattern: "Verifying accessibility of dependency 'DependentServiceA' for 'ComponentToFuckWithDeps'. Status: available."
+    expected: true
+
+  - check_id: execution_activate_ComponentToFuckWithDeps_temporary
+    type: log_contains
+    log_source: execution_engine.log
+    pattern: "Activating component 'ComponentToFuckWithDeps' (Temporary Mode)"
+    expected: true
+
+  - check_id: execution_ComponentToFuckWithDeps_active_with_dependency_note
+    type: log_contains
+    log_source: execution_engine.log
+    pattern: "Component 'ComponentToFuckWithDeps' is now active temporarily for task 'Temporary Workflow Execution', utilizing 'DependentServiceA'"
+    expected: true
+  
+  - check_id: component_ComponentToFuckWithDeps_initialized_temporary
+    type: log_contains
+    log_source: component_to_fuck_with_deps.log
+    pattern: "Initialized in temporary mode for task 'Temporary Workflow Execution'"
+    expected: true
+
+  - check_id: component_ComponentToFuckWithDeps_accessing_dependency
+    type: log_contains
+    log_source: component_to_fuck_with_deps.log
+    pattern: "Accessing DependentServiceA for utility_service_a_capability"
+    expected: true
+
+  - check_id: component_ComponentToFuckWithDeps_task_complete
+    type: log_contains
+    log_source: component_to_fuck_with_deps.log
+    pattern: "Task 'Temporary Workflow Execution' complete. Shutting down temporary instance."
+    expected: true
+
+  - check_id: execution_deactivate_ComponentToFuckWithDeps_temporary
+    type: log_contains
+    log_source: execution_engine.log
+    pattern: "Deactivating component 'ComponentToFuckWithDeps' (Temporary Mode)"
+    expected: true
+
+report_generator:
+  default_report_output_dir: ./reports 
+  default_report_formats: [json] 

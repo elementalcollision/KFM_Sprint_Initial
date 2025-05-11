@@ -1,0 +1,80 @@
+{
+  "components": [
+    {
+      "id": "ComponentCandidateA",
+      "name": "Quick Cache Service",
+      "version": "1.1.0",
+      "status": "available",
+      "description": "A fast caching component, decent for temporary use.",
+      "attributes": {
+        "temporary_utility_score": 0.7,
+        "integration_cost": 0.2,
+        "can_be_fucked": true,
+        "current_load": 0.1,
+        "failure_rate": 0.02
+      },
+      "dependencies": [],
+      "provides": ["temporary_caching_capability"]
+    },
+    {
+      "id": "ComponentCandidateB",
+      "name": "Advanced Temp Processor",
+      "version": "2.0.0",
+      "status": "available",
+      "description": "A highly efficient temporary processing unit, prime 'Fuck' candidate.",
+      "attributes": {
+        "temporary_utility_score": 0.9,
+        "integration_cost": 0.15,
+        "can_be_fucked": true,
+        "current_load": 0.05,
+        "failure_rate": 0.01
+      },
+      "dependencies": [],
+      "provides": ["advanced_temporary_processing"]
+    },
+    {
+      "id": "ComponentCandidateC",
+      "name": "Simple Data Filter",
+      "version": "1.0.0",
+      "status": "available",
+      "description": "A basic filtering component, usable but not optimal.",
+      "attributes": {
+        "temporary_utility_score": 0.6,
+        "integration_cost": 0.25,
+        "can_be_fucked": true,
+        "current_load": 0.15,
+        "failure_rate": 0.03
+      },
+      "dependencies": [],
+      "provides": ["basic_temporary_filtering"]
+    },
+    {
+      "id": "StableComponent",
+      "name": "Core Data Processor",
+      "version": "2.1.0",
+      "status": "active",
+      "description": "A critical, long-running component not suitable for temporary actions.",
+      "attributes": {
+        "temporary_utility_score": 0.1,
+        "integration_cost": 0.8,
+        "can_be_fucked": false,
+        "current_load": 0.6,
+        "failure_rate": 0.001
+      },
+      "dependencies": ["DatabaseService"],
+      "provides": ["core_data_processing"]
+    },
+    {
+      "id": "DatabaseService",
+      "name": "Main Database Service",
+      "version": "3.0.0",
+      "status": "active",
+      "description": "The primary database service.",
+      "attributes": {
+         "can_be_fucked": false
+      },
+      "dependencies": [],
+      "provides": ["database_access"]
+    }
+  ]
+} 

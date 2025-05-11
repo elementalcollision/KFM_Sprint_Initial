@@ -1,0 +1,13 @@
+{
+  "component_a": {
+    "status": "initial",
+    "data": null,
+    "config": {
+        "llm_model": "gpt-4"
+    }
+  },
+  "component_b": {
+    "config": "xyz",
+    "last_error": null
+  }
+} 

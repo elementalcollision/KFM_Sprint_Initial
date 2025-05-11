@@ -1,0 +1,35 @@
+{
+  "components": [
+    {
+      "id": "ComponentToFailDuringFuck",
+      "name": "Volatile Temp Processor",
+      "version": "0.9.0",
+      "status": "available",
+      "description": "A component suitable for temporary use but known to be unstable under certain conditions.",
+      "attributes": {
+        "temporary_utility_score": 0.8,
+        "integration_cost": 0.15,
+        "can_be_fucked": true,
+        "current_load": 0.05,
+        "intrinsic_failure_propensity": 0.7, // Higher chance of simulated failure
+        "failure_rate": 0.1 // Higher than average base failure rate
+      },
+      "dependencies": [],
+      "provides": ["volatile_temporary_processing"]
+    },
+    {
+      "id": "StableComponent",
+      "name": "Core Data Processor",
+      "version": "2.1.0",
+      "status": "active",
+      "description": "A critical, long-running component.",
+      "attributes": {
+        "temporary_utility_score": 0.1,
+        "integration_cost": 0.8,
+        "can_be_fucked": false
+      },
+      "dependencies": [],
+      "provides": ["core_data_processing"]
+    }
+  ]
+} 

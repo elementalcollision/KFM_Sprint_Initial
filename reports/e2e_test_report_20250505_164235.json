@@ -1,0 +1,61 @@
+{
+  "tests": {
+    "Kill Decision Test": {
+      "success": false,
+      "verification_results": {
+        "decision_logged": false,
+        "component_registry_updated": true,
+        "component_execution_logged": true,
+        "reflection_triggered": true,
+        "reflection_output_logged": false,
+        "final_state_valid": false,
+        "kfm_action_correct": true,
+        "active_component_correct": true,
+        "result_type_correct": true,
+        "reflection_count_correct": false
+      },
+      "has_final_state": true
+    },
+    "Marry Decision Test": {
+      "success": false,
+      "verification_results": {
+        "decision_logged": false,
+        "component_registry_updated": true,
+        "component_execution_logged": true,
+        "reflection_triggered": true,
+        "reflection_output_logged": false,
+        "final_state_valid": false,
+        "kfm_action_correct": true,
+        "active_component_correct": true,
+        "result_type_correct": true,
+        "reflection_count_correct": false
+      },
+      "has_final_state": true
+    },
+    "Default Component Test": {
+      "success": false,
+      "verification_results": {
+        "decision_logged": false,
+        "component_registry_updated": true,
+        "component_execution_logged": true,
+        "reflection_triggered": true,
+        "reflection_output_logged": false,
+        "final_state_valid": false,
+        "kfm_action_correct": true,
+        "active_component_correct": true,
+        "result_type_correct": true,
+        "reflection_count_correct": false
+      },
+      "has_final_state": true
+    }
+  },
+  "overall_success": false,
+  "duration": 0.006586313247680664,
+  "timestamp": "2025-05-05T16:42:35.846655",
+  "summary": {
+    "total_tests": 3,
+    "passed": 0,
+    "failed": 3,
+    "error": 0
+  }
+}

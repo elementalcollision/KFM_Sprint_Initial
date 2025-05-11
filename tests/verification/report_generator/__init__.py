@@ -1,0 +1,1 @@
+# Initialize the report_generator tests module 

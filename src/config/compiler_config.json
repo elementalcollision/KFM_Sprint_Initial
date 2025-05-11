@@ -1,0 +1,21 @@
+{
+  "threading_model": "sequential",
+  "optimization_level": "standard",
+  "validation": {
+    "enabled": true,
+    "strict": false
+  },
+  "export": {
+    "format": "json",
+    "include_metadata": true
+  },
+  "logging": {
+    "level": "INFO",
+    "capture_warnings": true
+  },
+  "visualization": {
+    "format": "png",
+    "include_edge_labels": true,
+    "include_node_details": true
+  }
+} 

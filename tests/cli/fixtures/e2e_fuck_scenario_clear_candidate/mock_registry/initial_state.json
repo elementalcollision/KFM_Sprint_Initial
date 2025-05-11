@@ -1,0 +1,48 @@
+{
+  "components": [
+    {
+      "id": "ComponentToFuck",
+      "name": "Temporary Task Handler",
+      "version": "1.0.0",
+      "status": "available",
+      "description": "A component designed for efficient temporary task execution, suitable for the 'Fuck' action.",
+      "attributes": {
+        "temporary_utility_score": 0.9,
+        "integration_cost": 0.1,
+        "can_be_fucked": true,
+        "current_load": 0.05,
+        "failure_rate": 0.01
+      },
+      "dependencies": [],
+      "provides": ["temporary_task_execution_capability"]
+    },
+    {
+      "id": "StableComponent",
+      "name": "Core Data Processor",
+      "version": "2.1.0",
+      "status": "active",
+      "description": "A critical, long-running component not suitable for temporary actions.",
+      "attributes": {
+        "temporary_utility_score": 0.1,
+        "integration_cost": 0.8,
+        "can_be_fucked": false,
+        "current_load": 0.6,
+        "failure_rate": 0.001
+      },
+      "dependencies": ["DatabaseService"],
+      "provides": ["core_data_processing"]
+    },
+    {
+      "id": "DatabaseService",
+      "name": "Main Database Service",
+      "version": "3.0.0",
+      "status": "active",
+      "description": "The primary database service.",
+      "attributes": {
+         "can_be_fucked": false
+      },
+      "dependencies": [],
+      "provides": ["database_access"]
+    }
+  ]
+} 
